@@ -60,14 +60,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
         </header>
         
-        <div className="prose prose-zinc dark:prose-invert max-w-none 
-          prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-tighter prose-headings:mt-16
-          prose-h3:text-2xl 
-          prose-p:leading-relaxed prose-p:font-light prose-p:text-zinc-600 dark:prose-p:text-zinc-400
-          prose-a:text-foreground prose-a:underline-offset-4 hover:prose-a:text-muted-foreground
-          prose-strong:font-bold prose-strong:text-foreground
-          prose-li:text-zinc-600 dark:prose-li:text-zinc-400 prose-li:font-light
-          prose-p:-tracking-[0.01em]">
+        <div className="prose dark:prose-invert max-w-none">
           {post.content}
         </div>
       </article>
