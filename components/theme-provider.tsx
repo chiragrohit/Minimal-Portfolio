@@ -2,7 +2,12 @@
 
 import * as React from 'react';
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultTheme?: 'light' | 'dark' | 'system';
+}
+
+export function ThemeProvider({ children, defaultTheme = 'dark' }: ThemeProviderProps) {
   const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
 
   React.useEffect(() => {
@@ -10,17 +15,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
     if (savedTheme) {
       initialTheme = savedTheme;
-    } else {
+    } else if (defaultTheme === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       initialTheme = mediaQuery.matches ? 'dark' : 'light';
+    } else {
+      initialTheme = defaultTheme;
     }
     
-    // We only update if it is different from the initial 'light' value to avoid unnecessary re-renders.
     if (initialTheme !== 'light') {
       setTimeout(() => setTheme(initialTheme), 0);
     }
     document.documentElement.classList.toggle('dark', initialTheme === 'dark');
-  }, []);
+  }, [defaultTheme]);
 
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';

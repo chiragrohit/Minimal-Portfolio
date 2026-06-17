@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/header';
+import { getConfig } from '@/lib/data';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,22 +20,24 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
 });
 
+const config = getConfig();
+
 export const metadata: Metadata = {
-  title: 'Portfolio | Full Stack Developer',
-  description: 'Minimalist professional portfolio featuring blog and projects.',
+  title: `${config.siteTitle}`,
+  description: config.siteDescription,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} antialiased`} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground selection:bg-muted-foreground selection:text-background flex flex-col">
-        <ThemeProvider>
+        <ThemeProvider defaultTheme={config.theme}>
           <Header />
           <main className="flex-1">
             {children}
           </main>
           <footer className="py-8 text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} My Portfolio. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {config.siteTitle}. {config.footerText}</p>
           </footer>
         </ThemeProvider>
       </body>

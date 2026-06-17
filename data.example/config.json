@@ -1,0 +1,12 @@
+{
+  "siteTitle": "My Portfolio",
+  "siteDescription": "Minimalist professional portfolio featuring blog and projects.",
+  "theme": "dark",
+  "accentColor": "#3b82f6",
+  "showBlog": true,
+  "showAchievements": true,
+  "showExperience": true,
+  "showEducation": true,
+  "showSkills": true,
+  "footerText": "All rights reserved."
+}

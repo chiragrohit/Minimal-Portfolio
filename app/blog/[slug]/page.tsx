@@ -1,4 +1,4 @@
-import { POSTS } from '@/lib/blog';
+import { getBlogPosts } from '@/lib/data';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -10,15 +10,17 @@ interface BlogPostPageProps {
   }>;
 }
 
+const posts = getBlogPosts();
+
 export async function generateStaticParams() {
-  return POSTS.map((post) => ({
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const p = await params;
-  const post = POSTS.find((p_local) => p_local.slug === p.slug);
+  const post = posts.find((p_local) => p_local.slug === p.slug);
   
   if (!post) {
     return {
@@ -34,7 +36,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const p = await params;
-  const post = POSTS.find((p_local) => p_local.slug === p.slug);
+  const post = posts.find((p_local) => p_local.slug === p.slug);
 
   if (!post) {
     notFound();

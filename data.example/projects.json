@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ecommerce-dashboard",
+    "title": "E-Commerce Dashboard",
+    "description": "A full-stack analytics dashboard for modern retailers. Features real-time inventory tracking, sales metrics, and a beautiful dark mode UI.",
+    "tech": ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    "demoUrl": "",
+    "githubUrl": "",
+    "featured": true,
+    "image": ""
+  },
+  {
+    "id": "typeflow",
+    "title": "TypeFlow",
+    "description": "Minimalist markdown editor with cross-device cloud sync. It provides a distraction-free writing environment with offline-first capabilities.",
+    "tech": ["React", "IndexedDB", "Firebase", "Framer Motion"],
+    "demoUrl": "",
+    "githubUrl": "",
+    "featured": false,
+    "image": ""
+  },
+  {
+    "id": "orbit-design-system",
+    "title": "Orbit Design System",
+    "description": "An accessible, comprehensive React component library used across multiple internal products. Includes 40+ components.",
+    "tech": ["React", "Radix UI", "Storybook", "Tailwind CSS"],
+    "demoUrl": "",
+    "githubUrl": "",
+    "featured": false,
+    "image": ""
+  }
+]

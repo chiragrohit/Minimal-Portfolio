@@ -1,12 +1,5 @@
 import * as React from 'react';
-
-export interface BlogPost {
-  slug: string;
-  date: string;
-  title: string;
-  desc: string;
-  content: React.ReactNode;
-}
+import type { BlogPost } from '../../lib/data/types';
 
 export const POSTS: BlogPost[] = [
   {

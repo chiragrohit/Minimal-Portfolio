@@ -5,24 +5,32 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeToggle } from './theme-toggle';
+import { getProfile, getConfig } from '@/lib/data';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const profile = getProfile();
+  const config = getConfig();
+
+  const navLinks = [
+    { href: '/projects', label: 'Projects', show: true },
+    { href: '/experience', label: 'Experience', show: config.showExperience },
+    { href: '/blog', label: 'Blog', show: config.showBlog },
+  ].filter(link => link.show);
 
   return (
     <header className="sticky top-0 z-50 w-full mb-8 pt-8 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-5xl flex h-16 items-center justify-between px-6">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xs tracking-[0.3em] uppercase font-bold">DevPortfolio — <span className="text-muted-foreground font-normal italic font-serif capitalize">Software Engineer</span></span>
+          <span className="text-xs tracking-[0.3em] uppercase font-bold">{profile.name} — <span className="text-muted-foreground font-normal italic font-serif capitalize">{profile.role}</span></span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-8 text-[11px] uppercase tracking-[0.2em] font-medium">
-          <Link href="/projects" className="transition-colors hover:text-muted-foreground text-foreground">
-            Projects
-          </Link>
-          <Link href="/blog" className="transition-colors hover:text-muted-foreground text-foreground">
-            Blog
-          </Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-muted-foreground text-foreground">
+              {link.label}
+            </Link>
+          ))}
           <ThemeToggle />
         </nav>
 
@@ -48,20 +56,16 @@ export function Header() {
             className="md:hidden overflow-hidden border-t border-border"
           >
             <div className="container mx-auto max-w-5xl flex flex-col items-center space-y-6 py-6 text-[11px] uppercase tracking-[0.2em] font-medium">
-              <Link
-                href="/projects"
-                onClick={() => setIsOpen(false)}
-                className="transition-colors hover:text-muted-foreground text-foreground"
-              >
-                Projects
-              </Link>
-              <Link
-                href="/blog"
-                onClick={() => setIsOpen(false)}
-                className="transition-colors hover:text-muted-foreground text-foreground"
-              >
-                Blog
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="transition-colors hover:text-muted-foreground text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </motion.nav>
         )}

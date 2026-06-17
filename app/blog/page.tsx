@@ -1,12 +1,15 @@
 import { PenLine } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { POSTS } from '@/lib/blog';
+import { getBlogPosts, getConfig } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'Blog | Portfolio',
   description: 'Thoughts on software engineering, design, and architecture.',
 };
+
+const config = getConfig();
+const posts = getBlogPosts();
 
 export default function BlogPage() {
   return (
@@ -22,26 +25,30 @@ export default function BlogPage() {
       </div>
 
       <div className="flex flex-col border-t border-border pt-8">
-        <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-8 font-bold">Journal ({POSTS.length.toString().padStart(2, '0')})</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {POSTS.map((post) => (
-            <Link
-              key={post.title}
-              href={`/blog/${post.slug}`}
-              className="group flex flex-col gap-4 cursor-pointer"
-            >
-              <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
-                {post.date}
-              </div>
-              <h2 className="text-2xl font-serif italic text-foreground group-hover:text-muted-foreground transition-colors">
-                {post.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed font-light text-sm mt-2">
-                {post.desc}
-              </p>
-            </Link>
-          ))}
-        </div>
+        <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-8 font-bold">Journal ({posts.length.toString().padStart(2, '0')})</div>
+        {posts.length === 0 ? (
+          <p className="text-muted-foreground">No blog posts found. Add your posts to <code>data/blog/</code>.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {posts.map((post) => (
+              <Link
+                key={post.title}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col gap-4 cursor-pointer"
+              >
+                <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
+                  {post.date}
+                </div>
+                <h2 className="text-2xl font-serif italic text-foreground group-hover:text-muted-foreground transition-colors">
+                  {post.title}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed font-light text-sm mt-2">
+                  {post.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,3 +5,8 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# User data (personal content)
+data/*
+!data/.gitkeep
+!data/blog/
